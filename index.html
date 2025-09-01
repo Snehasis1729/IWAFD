@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MPP-Style Workshop | Home</title>
+  <meta name="description" content="Workshop on MATLAB and Python Programming – demo site" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #101734;
+      --card: #121a3b;
+      --text: #e6ecff;
+      --muted: #a9b5d6;
+      --brand: #6ea8fe;
+      --brand-2: #9b8cff;
+      --accent: #20c997;
+      --ring: rgba(110,168,254,.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.2);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(110,168,254,.15), transparent 60%),
+                  radial-gradient(900px 700px at -10% -20%, rgba(155,140,255,.12), transparent 55%),
+                  linear-gradient(180deg, #0a0f21 0%, #070a16 100%);
+    }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Top Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(140%) blur(10px);
+      background: linear-gradient(180deg, rgba(8,12,24,.85), rgba(8,12,24,.55));
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; max-width: 1100px; margin: 0 auto; padding: 14px 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .3px; }
+    .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: 0 0 0 6px var(--ring); }
+    .nav a { color: var(--text); opacity: .9; font-weight: 600; }
+    .nav .links { display: flex; gap: 16px; flex-wrap: wrap; }
+    .nav .cta {
+      padding: 8px 12px; border-radius: 999px; background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #06122a; font-weight: 800; box-shadow: var(--shadow);
+    }
+    .nav .cta:hover { filter: brightness(1.05); text-decoration: none; }
+
+    /* Layout helpers */
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .grid { display: grid; gap: 20px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (max-width: 900px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* Hero */
+    .hero { padding: 80px 24px 40px; text-align: center; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; background: rgba(255,255,255,.04); color: var(--muted); font-weight: 600; }
+    .h1 { font-size: clamp(34px, 5vw, 54px); margin: 14px auto 10px; font-weight: 800; letter-spacing: .2px; }
+    .subtitle { font-size: clamp(16px, 2.5vw, 20px); color: var(--muted); max-width: 820px; margin: 0 auto 16px; line-height: 1.6; }
+    .hero-card { margin: 22px auto 0; padding: 18px; max-width: 820px; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.1); border-radius: 18px; box-shadow: var(--shadow); }
+
+    /* Section */
+    section { padding: 28px 0; }
+    .section-title { font-size: 26px; font-weight: 800; letter-spacing: .3px; margin: 6px 0 14px; }
+    .card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 18px; box-shadow: var(--shadow); }
+    .muted { color: var(--muted); }
+    .list { margin: 0; padding-left: 18px; }
+    .list li { margin: 6px 0; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline:before { content: ""; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(180deg, var(--brand), transparent); }
+    .t-item { position: relative; margin: 10px 0 14px; padding-left: 8px; }
+    .t-item:before { content: ""; position: absolute; left: -2px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 5px var(--ring); }
+
+    /* Footer */
+    footer { padding: 28px 24px; border-top: 1px solid rgba(255,255,255,.06); color: var(--muted); text-align: center; }
+
+    /* Utility */
+    .pill { display: inline-flex; gap: 8px; align-items: center; padding: 8px 12px; border-radius: 9999px; background: rgba(32,201,151,.12); color: #c6ffee; font-weight: 700; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background: rgba(255,255,255,.08); padding: 2px 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,.12); }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#home" title="Home">
+        <span class="dot" aria-hidden="true"></span>
+        <span>MPP‑Style Workshop</span>
+      </a>
+      <div class="links" role="navigation" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#contents">Course Contents</a>
+        <a href="#speakers">Resource Persons</a>
+        <a href="#eligibility">Eligibility</a>
+        <a href="#news">News</a>
+        <a href="#timeline">Timeline</a>
+        <a class="cta" href="#register">Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home" class="hero container">
+    <span class="badge">WORKSHOP • ONLINE MODE • MAY 19–23, 2025</span>
+    <h1 class="h1">Workshop on MATLAB &amp; Python Programming</h1>
+    <p class="subtitle">
+      Organized by the <strong>Department of Mathematics</strong>, National Institute of Technology Jamshedpur.
+      A week of fast‑paced, hands‑on sessions covering the essentials of numerical computing and scripting.
+    </p>
+    <div class="hero-card grid grid-2">
+      <div>
+        <div class="pill" style="margin-bottom:10px;">🔴 Online • Live + Recordings</div>
+        <p class="muted" style="margin:0;">Dates: <strong>May 19–23, 2025</strong><br>
+        Mode: <strong>Virtual (Zoom/Meet)</strong><br>
+        Venue: <strong>NIT Jamshedpur</strong>, Jharkhand, India</p>
+      </div>
+      <div>
+        <p class="muted" style="margin:0;">Quick Links:</p>
+        <p style="margin:.3rem 0 0">
+          <a href="#brochure">Download Brochure</a> •
+          <a href="#participants">Registered Participants</a> •
+          <a href="#schedule">Schedule</a>
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ABOUT -->
+    <section id="about">
+      <h2 class="section-title">About the Workshop</h2>
+      <div class="card">
+        <p class="muted">
+          The Department of Mathematics at <a href="https://www.nitjsr.ac.in" target="_blank" rel="noopener">NIT Jamshedpur</a> is hosting an online workshop on MATLAB and Python programming. The primary objective is to build practical fluency in these tools with concise lectures and hands‑on labs.
+        </p>
+      </div>
+    </section>
+
+    <!-- COURSE CONTENTS -->
+    <section id="contents">
+      <h2 class="section-title">Course Contents (not limited to)</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>MATLAB</h3>
+          <ul class="list">
+            <li>Basics: variables, data formats, matrices</li>
+            <li>Conditionals, loops, functions</li>
+            <li>Calculus: sums, derivatives, integrals</li>
+            <li>ODE/PDE (analytical & numerical)</li>
+            <li>2D/3D plotting and automation</li>
+            <li>Intro to ML with toolboxes</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>PYTHON</h3>
+          <ul class="list">
+            <li>Basics: data types, expressions, I/O</li>
+            <li>Control flow, functions, modules</li>
+            <li>Strings, lists, dicts, sets</li>
+            <li>Math, Complex, NumPy, SymPy, Matplotlib</li>
+            <li>Machine learning: SVM & pipelines</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESOURCE PERSONS -->
+    <section id="speakers">
+      <h2 class="section-title">Resource Persons (Tentative)</h2>
+      <div class="grid grid-3">
+        <div class="card"><strong>Prof. A. Swaminathan</strong><br><span class="muted">IIT Roorkee</span></div>
+        <div class="card"><strong>Dr. Ratikanta Behera</strong><br><span class="muted">IISc Bangalore</span></div>
+        <div class="card"><strong>Dr. M. K. Gupta</strong><br><span class="muted">IIT Bhubaneswar</span></div>
+        <div class="card"><strong>Dr. Pushpendra Kumar</strong><br><span class="muted">MANIT Bhopal</span></div>
+        <div class="card"><strong>Dr. Rakesh Kumar Meena</strong><br><span class="muted">JNU, New Delhi</span></div>
+        <div class="card"><strong>Dr. Saikat Das</strong><br><span class="muted">IIT Madras</span></div>
+        <div class="card"><strong>Dr. Vikas Srivastava</strong><br><span class="muted">IIT Madras</span></div>
+        <div class="card"><strong>Dr. I. P. Tripathi</strong><br><span class="muted">SVNIT Surat</span></div>
+        <div class="card"><strong>Dr. Sudeep Singh Sanga</strong><br><span class="muted">SVNIT Surat</span></div>
+      </div>
+    </section>
+
+    <!-- ELIGIBILITY -->
+    <section id="eligibility">
+      <h2 class="section-title">Eligibility</h2>
+      <div class="card">
+        <p class="muted">B.Tech / B.Sc / M.Tech / M.Sc / Ph.D students and faculty members from Universities, Institutes and Colleges.</p>
+      </div>
+    </section>
+
+    <!-- NEWS & UPDATES -->
+    <section id="news">
+      <h2 class="section-title">News & Updates</h2>
+      <div class="card">
+        <ul class="list">
+          <li>Last date of registration: <strong>April 30, 2025</strong>.</li>
+          <li>Registration fee: <strong>₹500</strong>. <em>Registration is now closed.</em></li>
+          <li id="brochure"><a href="#">Download brochure (PDF)</a></li>
+          <li id="participants"><a href="#">Tentative list of registered participants</a></li>
+          <li id="schedule"><a href="#">Schedule (Time Table)</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline">
+      <h2 class="section-title">Timeline</h2>
+      <div class="card timeline">
+        <div class="t-item"><strong>Mar 15:</strong> Call for registration opens</div>
+        <div class="t-item"><strong>Apr 30:</strong> Registration closes</div>
+        <div class="t-item"><strong>May 10:</strong> Final schedule released</div>
+        <div class="t-item"><strong>May 19–23:</strong> Workshop takes place (online)</div>
+      </div>
+    </section>
+
+    <!-- REGISTRATION (DEMO) -->
+    <section id="register">
+      <h2 class="section-title">Registration</h2>
+      <div class="card">
+        <p class="muted">This is a demo form. Replace the action with your form endpoint (e.g., Google Forms) or a static form handler like Getform/Netlify.</p>
+        <form id="regForm" action="#" method="post" onsubmit="return fakeSubmit(event)">
+          <div class="grid grid-2" style="margin: 10px 0;">
+            <label>Full Name<br><input class="input" required name="name" placeholder="Your name" /></label>
+            <label>Email<br><input class="input" required type="email" name="email" placeholder="name@example.com" /></label>
+          </div>
+          <div class="grid grid-2" style="margin: 10px 0;">
+            <label>Affiliation<br><input class="input" required name="affiliation" placeholder="University / Institute" /></label>
+            <label>Category<br>
+              <select class="input" required name="category">
+                <option value="Student">Student</option>
+                <option value="Faculty">Faculty</option>
+                <option value="Industry">Industry</option>
+              </select>
+            </label>
+          </div>
+          <label>Comments (optional)<br><textarea class="input" rows="4" name="message" placeholder="Anything we should know?"></textarea></label>
+          <div style="display:flex; gap: 10px; align-items:center; margin-top: 12px;">
+            <button class="btn" type="submit">Submit</button>
+            <span id="status" class="muted" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Workshop. All rights reserved. • <a href="#home">Back to top</a>
+  </footer>
+
+  <style>
+    /* small form styles placed at the end for clarity */
+    label { font-weight: 600; }
+    .input { width: 100%; margin-top: 6px; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); color: var(--text); outline: none; }
+    .input:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--ring); }
+    .btn { appearance: none; border: 0; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #071225; padding: 10px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow); }
+    .btn:hover { filter: brightness(1.05); }
+  </style>
+
+  <script>
+    // small enhancements
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function fakeSubmit(e){
+      e.preventDefault();
+      const status = document.getElementById('status');
+      status.textContent = 'Submitting…';
+      setTimeout(()=>{
+        status.textContent = 'Thanks! Your demo submission was recorded locally.';
+      }, 900);
+      return false;
+    }
+  </script>
+</body>
+</html>
